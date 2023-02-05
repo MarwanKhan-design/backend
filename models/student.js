@@ -16,7 +16,9 @@ const StudentSchema = new mongoose.Schema({
 
 const ParentSchema = new mongoose.Schema({
   name: String,
-  CNIC_No: String,
+  CNIC_No: {
+    type: String,
+  },
   occupation: String,
   company: String,
   designation: String,

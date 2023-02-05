@@ -2,10 +2,21 @@ import _ from "lodash";
 import Student from "../models/student.js";
 
 export const createStudent = async (req, res) => {
-  let student = await new Student(req.body);
+  const students = await Student.find();
+  const isUnique = false;
 
-  student.save();
-  res.json(student);
+  students.forEach((student) => {
+    if (student.student.name === req.body.student.name) {
+      isUnique = true;
+    }
+  });
+
+  if (isUnique === false) {
+    let student = await new Student(req.body);
+
+    student.save();
+    return res.json(student);
+  }
 };
 
 export const getStudents = async (req, res) => {
