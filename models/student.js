@@ -44,6 +44,7 @@ const studentSchema = mongoose.model(
     father: ParentSchema,
     mother: ParentSchema,
     siblings: [SiblingSchema],
+    image: String,
   })
 );
 

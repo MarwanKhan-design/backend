@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 import config from "config";
 import cors from "cors";
 import path from "path";
-import { dirname } from "path";
 
 // Import Routes
 import UserRoutes from "./routes/user.js";
@@ -25,6 +24,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
 app.use(cors());
@@ -33,6 +33,8 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname + "/public")));
+app.use("/images", express.static(path.join(__dirname, "/uploads")));
+
 // Routes
 app.use("/api/users", UserRoutes);
 app.use("/api/auth", AuthRoutes);

@@ -3,16 +3,19 @@ import Student from "../models/student.js";
 
 export const createStudent = async (req, res) => {
   const students = await Student.find();
-  const isUnique = false;
+  let isUnique = false;
 
   students.forEach((student) => {
-    if (student.student.name === req.body.student.name) {
+    if (
+      student.student.name === req.body.student.name ||
+      student.father.name === req.father.name
+    ) {
       isUnique = true;
     }
   });
 
   if (isUnique === false) {
-    let student = await new Student(req.body);
+    let student = await new Student({ ...req.body, image: req.file });
 
     student.save();
     return res.json(student);
@@ -37,4 +40,11 @@ export const deleteStudent = async (req, res) => {
     return res.send("The genre with the given ID is Already Deleted");
 
   res.send(student);
+};
+export const uploadImage = async (req, res) => {
+  console.log(req.file.filename, req.body.studentId);
+  const student = await Student.findByIdAndUpdate(req.body.studentId, {
+    image: req.file.filename,
+  });
+  res.json(student);
 };
