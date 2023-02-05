@@ -41,7 +41,7 @@ app.use("/api/student", StudentRoutes);
 
 // Listeners
 mongoose.connect(
-  "mongodb://127.0.0.1:27017/jwt-auth",
+  "mongodb+srv://iiui:iiuiSecurePass@cluster0.vr6a1yl.mongodb.net/?retryWrites=true&w=majority",
   { useNewUrlParser: true },
   () => console.log("connected to DB")
 );
