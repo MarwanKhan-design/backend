@@ -15,10 +15,6 @@ import StudentRoutes from "./routes/student.js";
 
 import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-
-const __dirname = path.dirname(__filename);
-
 // App
 // if (!config.get("jwtPrivateKey")) {
 //   console.error("FATAL ERROR: jwtPrivateKey is not defined");
@@ -30,14 +26,13 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(morgan("dev"));
+
+app.use(cors());
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname + "/public")));
-
-app.use(
-  cors({
-    origin: "*",
-  })
-);
-
 // Routes
 app.use("/api/users", UserRoutes);
 app.use("/api/auth", AuthRoutes);
